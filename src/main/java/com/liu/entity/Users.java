@@ -1,14 +1,13 @@
 package com.liu.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 @Data
 @TableName("users")
 public class Users {
 
-    @TableField("id")
+    @TableId(type = IdType.ASSIGN_UUID)
     private String id;
 
     @TableField("username")
@@ -17,10 +16,10 @@ public class Users {
     @TableField("password")
     private String password;
 
-    @TableField("face_image")
+    @TableField(value = "face_image",fill = FieldFill.INSERT)
     private String faceImage;
 
-    @TableField("face_image_big")
+    @TableField(value = "face_image_big",fill = FieldFill.INSERT)
     private String faceImageBig;
 
     @TableField("nick_name")
@@ -30,5 +29,5 @@ public class Users {
     private String qrCode;
 
     @TableField("cid")
-    private Integer cid;
+    private String cid;
 }

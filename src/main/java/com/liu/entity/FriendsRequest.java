@@ -1,6 +1,8 @@
 package com.liu.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -10,7 +12,7 @@ import java.util.Date;
 @TableName("friends_request")
 public class FriendsRequest {
 
-    @TableField("id")
+    @TableId(type = IdType.ASSIGN_UUID)
     private String id;
 
     @TableField("send_user_id")
