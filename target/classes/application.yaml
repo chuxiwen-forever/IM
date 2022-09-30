@@ -4,6 +4,13 @@ spring:
     username: root
     url: jdbc:mysql://localhost:3306/im
     driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    alicloud:
+      access-key: LTAI5tNfUdNLhq1U6sDL2Zuk
+      secret-key: tmYBDFczJbNXYChuO6JSKO21gfQkRe
+      oss:
+        endpoint: oss-cn-beijing.aliyuncs.com
+        bucket: chuxiwen
 
 
 

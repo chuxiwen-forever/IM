@@ -4,6 +4,13 @@ spring:
     username: root
     url: jdbc:mysql://localhost:3306/im
     driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    alicloud:
+      access-key:
+      secret-key:
+      oss:
+        endpoint:
+        bucket: 
 
 
 
