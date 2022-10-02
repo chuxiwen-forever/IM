@@ -1,5 +1,6 @@
 package com.liu.controllor;
 
+import com.liu.BO.NicknameBO;
 import com.liu.VO.UserVO;
 import com.liu.entity.Users;
 import com.liu.service.UsersService;
@@ -45,5 +46,10 @@ public class UsersController {
         }
     }
 
+    @PostMapping("/updateNickname")
+    public R updateNickname(@RequestBody NicknameBO nicknameBO){
+        Users users = usersService.updateNickname(nicknameBO);
+        return R.success(users).message("修改成功");
+    }
 
 }

@@ -23,10 +23,10 @@ public class Users {
     private String faceImageBig;
 
     @TableField("nick_name")
-    private String nickName;
+    private String nickname;
 
     @TableField("qrcode")
-    private String qrCode;
+    private String qrcode;
 
     @TableField("cid")
     private String cid;
