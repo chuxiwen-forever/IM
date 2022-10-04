@@ -1,12 +1,14 @@
 package com.liu;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class Test {
+public class Tests {
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void test(){
 
     }
+
 }

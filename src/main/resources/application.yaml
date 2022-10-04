@@ -10,7 +10,7 @@ spring:
       secret-key:
       oss:
         endpoint: oss-cn-beijing.aliyuncs.com
-        bucket:
+        bucket: chuxiwen
 
 
 

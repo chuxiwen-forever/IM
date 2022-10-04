@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.util.UUID;
+
 @Service
 public class UsersServiceImpl implements UsersService {
 
@@ -47,6 +49,7 @@ public class UsersServiceImpl implements UsersService {
     @Transactional
     public Users insertUser(LoginBO loginBO) {
         Users user = new Users();
+        user.setId(UUID.randomUUID().toString().replace("-",""));
         user.setUsername(loginBO.getUsername());
         user.setPassword(MD5Utils.getMD5Str(loginBO.getPassword()));
         user.setNickname(loginBO.getUsername());

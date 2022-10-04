@@ -7,7 +7,7 @@ import lombok.Data;
 @TableName("users")
 public class Users {
 
-    @TableId(type = IdType.ASSIGN_UUID)
+    @TableId
     private String id;
 
     @TableField("username")
