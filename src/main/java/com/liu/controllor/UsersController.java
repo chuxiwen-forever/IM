@@ -1,5 +1,6 @@
 package com.liu.controllor;
 
+import com.liu.BO.ImgBO;
 import com.liu.BO.NicknameBO;
 import com.liu.VO.UserVO;
 import com.liu.entity.Users;
@@ -52,4 +53,9 @@ public class UsersController {
         return R.success(users).message("修改成功");
     }
 
+    @PostMapping("/uploadImg")
+    public R uploadImg(@RequestBody ImgBO imgBO){
+        UserVO userVO = usersService.updateImg(imgBO);
+        return R.success(userVO).message("上传成功");
+    }
 }

@@ -1,6 +1,8 @@
 package com.liu.service;
 
+import com.liu.BO.ImgBO;
 import com.liu.BO.NicknameBO;
+import com.liu.VO.UserVO;
 import com.liu.entity.Users;
 import com.liu.BO.LoginBO;
 
@@ -32,4 +34,11 @@ public interface UsersService {
      * @return 更改过的数据
      */
     Users updateNickname(NicknameBO nicknameBO);
+
+    /**
+     * 前端传入Base64格式照片，转换后存储在目录中，上传OSS后返回用户新信息
+     * @param imgBO base64格式数据和用户id
+     * @return 新的用户信息
+     */
+    UserVO updateImg(ImgBO imgBO);
 }
