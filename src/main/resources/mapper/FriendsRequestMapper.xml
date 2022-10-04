@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liu.mapper.FriendsRequestMapper">
+
+    <select id="getFriendRequestList" resultType="com.liu.VO.RequestVO" parameterType="java.lang.String">
+        select
+            sender.id as sendId,
+            sender.username as sendUsername,
+            sender.face_image as sendImage,
+            sender.nick_name as sendNickname
+        from
+            friends_request fr
+        left join
+            users sender
+        on
+            fr.send_user_id = sender.id
+        where
+            fr.accept_user_id = #{acceptId}
+    </select>
 </mapper>

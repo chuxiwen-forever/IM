@@ -34,7 +34,7 @@ public class MyFriendsController {
             Users friend = (Users) friendResult.get("friend");
             UserVO userVO = new UserVO();
             BeanUtils.copyProperties(friend,userVO);
-            return R.fail(userVO).message("查询成功");
+            return R.success(userVO).message("查询成功");
         }else {
             return R.fail(null).message(msg);
         }

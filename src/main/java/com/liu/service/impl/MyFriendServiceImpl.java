@@ -29,24 +29,26 @@ public class MyFriendServiceImpl implements MyFriendsService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public Map<String ,Object> searchUserId(SearchBO searchBO) {
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         Users friend = usersMapper.selectOne(new LambdaQueryWrapper<Users>().eq(Users::getUsername, searchBO.getFriendUsername()));
-        MyFriends existFriend = myFriendsMapper
-                .selectOne(new LambdaQueryWrapper<MyFriends>()
-                        .eq(MyFriends::getMyUserId, searchBO.getMyUserId())
-                        .eq(MyFriends::getMyFriendUserId, friend.getId()));
-        if(ObjectUtils.isEmpty(friend)){
+        if (ObjectUtils.isEmpty(friend)) {
             // 如果系统中没有该用户，就返回 用户不存在
-            result.put("msg",SearchFriendsStatus.USER_NOT_EXIST.msg);
+            result.put("msg", SearchFriendsStatus.USER_NOT_EXIST.msg);
             return result;
-        }else if(friend.getId().equals(searchBO.getMyUserId())){
-            // 如果传入的用户名和自己的id一样 返回不能添加自己
-            result.put("msg",SearchFriendsStatus.NOT_YOURSELF.msg);
-            return result;
-        }else if(!ObjectUtils.isEmpty(existFriend)){
-            // 如果传入的用户名和朋友名已经存与数据库，返回已经存在该好友
-            result.put("msg",SearchFriendsStatus.ALREADY_FRIENDS.msg);
-            return result;
+        } else {
+            MyFriends existFriend = myFriendsMapper
+                    .selectOne(new LambdaQueryWrapper<MyFriends>()
+                            .eq(MyFriends::getMyUserId, searchBO.getMyUserId())
+                            .eq(MyFriends::getMyFriendUserId, friend.getId()));
+            if (friend.getId().equals(searchBO.getMyUserId())) {
+                // 如果传入的用户名和自己的id一样 返回不能添加自己
+                result.put("msg", SearchFriendsStatus.NOT_YOURSELF.msg);
+                return result;
+            } else if (!ObjectUtils.isEmpty(existFriend)) {
+                // 如果传入的用户名和朋友名已经存与数据库，返回已经存在该好友
+                result.put("msg", SearchFriendsStatus.ALREADY_FRIENDS.msg);
+                return result;
+            }
         }
         // 返回成功
         result.put("msg",SearchFriendsStatus.SUCCESS.msg);

@@ -13,6 +13,7 @@ public class MybatisHandler implements MetaObjectHandler {
         this.strictInsertFill(metaObject,"faceImage",String.class,"https://chuxiwen.oss-cn-beijing.aliyuncs.com/default.png");
         this.strictInsertFill(metaObject,"faceImageBig",String.class,"https://chuxiwen.oss-cn-beijing.aliyuncs.com/default.png");
         this.strictInsertFill(metaObject,"createTime", Date.class,new Date());
+        this.strictInsertFill(metaObject,"requestDateTime",Date.class,new Date());
     }
 
     @Override

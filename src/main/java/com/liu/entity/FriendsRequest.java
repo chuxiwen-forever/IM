@@ -1,9 +1,6 @@
 package com.liu.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.util.Date;
@@ -21,6 +18,6 @@ public class FriendsRequest {
     @TableField("accept_user_id")
     private String acceptUserId;
 
-    @TableField("request_date_time")
+    @TableField(value = "request_date_time",fill = FieldFill.INSERT)
     private Date requestDateTime;
 }

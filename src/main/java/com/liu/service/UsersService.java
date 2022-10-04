@@ -1,6 +1,6 @@
 package com.liu.service;
 
-import com.liu.BO.ImgBO;
+import com.liu.BO.ImageBO;
 import com.liu.BO.NicknameBO;
 import com.liu.VO.UserVO;
 import com.liu.entity.Users;
@@ -40,5 +40,5 @@ public interface UsersService {
      * @param imgBO base64格式数据和用户id
      * @return 新的用户信息
      */
-    UserVO updateImg(ImgBO imgBO);
+    UserVO updateImg(ImageBO imgBO);
 }

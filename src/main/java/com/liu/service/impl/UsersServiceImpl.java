@@ -1,7 +1,7 @@
 package com.liu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.liu.BO.ImgBO;
+import com.liu.BO.ImageBO;
 import com.liu.BO.NicknameBO;
 import com.liu.VO.UserVO;
 import com.liu.entity.Users;
@@ -77,7 +77,8 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UserVO updateImg(ImgBO imgBO) {
+    @Transactional
+    public UserVO updateImg(ImageBO imgBO) {
         String path = "D://photo//" + imgBO.getUserId().substring(0,6) + "img.jpg";
         // 将前端传来的Base64编码转换成图片存到本地
         Base64Util.convertBase64ToImage(imgBO.getImgData(),path);

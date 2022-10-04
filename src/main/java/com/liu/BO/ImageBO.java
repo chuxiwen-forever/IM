@@ -3,7 +3,7 @@ package com.liu.BO;
 import lombok.Data;
 
 @Data
-public class ImgBO {
+public class ImageBO {
 
     private String userId;
 
