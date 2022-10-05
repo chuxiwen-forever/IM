@@ -61,6 +61,9 @@ public class UsersServiceImpl implements UsersService {
         String qrCodePath = "D://photo//" + user.getId().substring(0,7)+"qrcode.png";
         qrCodeUtils.createQRCode(qrCodePath,"qrCode:" + user.getUsername());
         String uploadUrl = ossUtils.upload(qrCodePath);
+        // 当照片存到OSS后，删除本地的文件
+        File file = new File(qrCodePath);
+        file.delete();
         user.setQrcode(uploadUrl);
         user.setCid(loginBO.getCid());
         usersMapper.insert(user);

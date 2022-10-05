@@ -82,9 +82,11 @@ public class OSSUtils {
             ossClient.putObject(bucket,objectName,inputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }finally {
-            ossClient.shutdown();
         }
         return host + "/" + objectName ;
+    }
+
+    public void close(){
+        ossClient.shutdown();
     }
 }

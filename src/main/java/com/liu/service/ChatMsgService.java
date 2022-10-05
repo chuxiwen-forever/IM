@@ -1,5 +1,6 @@
 package com.liu.service;
 
+import com.liu.entity.ChatMsg;
 import com.liu.netty.NettyChatMsg;
 
 import java.util.List;
@@ -17,4 +18,11 @@ public interface ChatMsgService {
      * @param msgIdList 消息id列表
      */
     void updateMsgSignedList(List<String> msgIdList);
+
+    /**
+     * 获取所有未接受的消息
+     * @param acceptUserId 接收者id
+     * @return 封装的信息
+     */
+    List<ChatMsg> getUnReadMsgList(String acceptUserId);
 }

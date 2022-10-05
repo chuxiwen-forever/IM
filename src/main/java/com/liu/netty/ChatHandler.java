@@ -54,6 +54,8 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             ChatMsgService chatMsgService = (ChatMsgService) SpringUtil.getBean("chatMsgServiceImpl");
             String msgId = chatMsgService.saveMsg(chatMsg);
             chatMsg.setMsgId(msgId);
+            DataContent targetContent = new DataContent();
+            targetContent.setChatMsg(chatMsg);
 
             // 1.2.2发送消息
             // 1.2.2.1 获取签收者id
@@ -67,7 +69,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
                 Channel findChannel = users.find(acceptUserChannel.id());
                 if(findChannel != null){
                     // 说明用户在线
-                    acceptUserChannel.writeAndFlush(new TextWebSocketFrame(JSON.toJSONString(chatMsg)));
+                    acceptUserChannel.writeAndFlush(new TextWebSocketFrame(JSON.toJSONString(targetContent)));
                 }else{
                     // 用户离线 推送消息
                 }
@@ -78,13 +80,14 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             ChatMsgService chatMsgService = (ChatMsgService) SpringUtil.getBean("chatMsgServiceImpl");
             // 拓展字段在signed类型的消息中，代表签收的用户id，逗号隔开
             String extend = dataContent.getExtend();
-            String[] split = extend.split(",");
-            List<String> msgIdList =
-                    Arrays.stream(split).filter(StringUtils::isNotBlank).collect(Collectors.toList());
-            System.out.println(msgIdList.toString());
-            if(ObjectUtils.isEmpty(msgIdList) && !msgIdList.isEmpty() && msgIdList.size() > 0){
-                // 批量签收
-                chatMsgService.updateMsgSignedList(msgIdList);
+            if(!ObjectUtils.isEmpty(extend)){
+                String[] split = extend.split(",");
+                List<String> msgIdList =
+                        Arrays.stream(split).filter(StringUtils::isNotBlank).collect(Collectors.toList());
+                if(!ObjectUtils.isEmpty(msgIdList) && !msgIdList.isEmpty() && msgIdList.size() > 0){
+                    // 批量签收
+                    chatMsgService.updateMsgSignedList(msgIdList);
+                }
             }
         }else if (action.equals(MsgActionMsg.KEEPALIVE.type)){
             // 1.4. 心跳类型
@@ -103,7 +106,6 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
         users.remove(ctx.channel());
-
     }
 
     @Override

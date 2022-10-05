@@ -1,5 +1,6 @@
 package com.liu.service.impl;
 
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.liu.BO.ChooseBO;
 import com.liu.BO.RequestFriendBO;
@@ -10,8 +11,13 @@ import com.liu.entity.Users;
 import com.liu.mapper.FriendsRequestMapper;
 import com.liu.mapper.MyFriendsMapper;
 import com.liu.mapper.UsersMapper;
+import com.liu.netty.DataContent;
+import com.liu.netty.UserAndChannel;
+import com.liu.netty.enums.MsgActionMsg;
 import com.liu.netty.enums.OperatorFriendRequestType;
 import com.liu.service.FriendsRequestService;
+import io.netty.channel.Channel;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -72,6 +78,14 @@ public class FriendsRequestServiceImpl implements FriendsRequestService {
             insert(acceptUserId,sendUserId);
             insert(sendUserId,acceptUserId);
             deleteRequest(chooseBO);
+
+            // 使用Websocket主动推送消息到请求发起者，更新他的通讯录
+            Channel sendChannel = UserAndChannel.get(sendUserId);
+            if(!ObjectUtils.isEmpty(sendChannel)){
+                DataContent dataContent = new DataContent();
+                dataContent.setAction(MsgActionMsg.PULL_FRIEND.type);
+                sendChannel.writeAndFlush(new TextWebSocketFrame(JSON.toJSONString(dataContent)));
+            }
             return 1;
         }else {
             return 0;

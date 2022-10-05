@@ -1,6 +1,7 @@
 package com.liu.controllor;
 
 import com.liu.BO.SearchBO;
+import com.liu.VO.MyFriendVO;
 import com.liu.VO.UserVO;
 import com.liu.entity.Users;
 import com.liu.netty.enums.SearchFriendsStatus;
@@ -9,11 +10,9 @@ import com.liu.utils.R.R;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -38,5 +37,11 @@ public class MyFriendsController {
         }else {
             return R.fail(null).message(msg);
         }
+    }
+
+    @GetMapping("/getFriend/{userId}")
+    public R getAllFriendMsg(@PathVariable("userId") String userId){
+        List<MyFriendVO> friendList = myFriendsService.getAllFriendsByUserId(userId);
+        return R.success(friendList);
     }
 }

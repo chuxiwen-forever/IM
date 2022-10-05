@@ -2,6 +2,7 @@ package com.liu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.liu.BO.SearchBO;
+import com.liu.VO.MyFriendVO;
 import com.liu.entity.MyFriends;
 import com.liu.entity.Users;
 import com.liu.mapper.MyFriendsMapper;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -55,4 +57,12 @@ public class MyFriendServiceImpl implements MyFriendsService {
         result.put("friend",friend);
         return result;
     }
+
+    @Override
+    @Transactional
+    public List<MyFriendVO> getAllFriendsByUserId(String userId) {
+        return myFriendsMapper.getAllFriendMsgByUserId(userId);
+    }
+
+
 }
