@@ -7,6 +7,7 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 
 public class WSServerInit extends ChannelInitializer<SocketChannel> {
 
@@ -20,6 +21,11 @@ public class WSServerInit extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new ChunkedWriteHandler());
         // http的聚合器，聚合成FullHttpRequest 或 FullHttpResponse
         pipeline.addLast(new HttpObjectAggregator(1024 * 64));
+
+        // 如果客户端长时间读写空闲，就主动断开链接
+        pipeline.addLast(new IdleStateHandler(60, 120 , 300));
+        // 自定义空闲检测
+        pipeline.addLast(new HeadHandler());
 
         // webSocket 客户端的指定路由  处理握手动作
         pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
