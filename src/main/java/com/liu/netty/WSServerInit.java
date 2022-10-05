@@ -23,7 +23,7 @@ public class WSServerInit extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new HttpObjectAggregator(1024 * 64));
 
         // 如果客户端长时间读写空闲，就主动断开链接
-        pipeline.addLast(new IdleStateHandler(60, 120 , 300));
+        pipeline.addLast(new IdleStateHandler(6, 12 , 30));
         // 自定义空闲检测
         pipeline.addLast(new HeadHandler());
 

@@ -5,10 +5,13 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class WSServer {
+
 
     private EventLoopGroup mainGroup;
     private EventLoopGroup subGroup;
@@ -34,8 +37,8 @@ public class WSServer {
     }
 
     public void start(){
-        future = server.bind(8088);
-        System.err.println("服务器启动成功...");
+        future = server.bind(8143);
+        log.info("Netty 服务启动，运行在8143端口");
     }
 
 

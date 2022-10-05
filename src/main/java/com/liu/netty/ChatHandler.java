@@ -12,6 +12,7 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ObjectUtils;
 
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
  *
  * TextWebSocketFrame: 在netty中，是用于为WebSocket专门处理文本的对象，frame是消息的载体
  */
+@Slf4j
 public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
     // 用于记录和管理所以用户端的Channel
@@ -91,7 +93,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             }
         }else if (action.equals(MsgActionMsg.KEEPALIVE.type)){
             // 1.4. 心跳类型
-            System.out.println("收到来着channel为[" + currentChannel + "] 的心跳包");
+            log.info("收到来着channel为[" + currentChannel + "] 的心跳包");
         }
 
     }

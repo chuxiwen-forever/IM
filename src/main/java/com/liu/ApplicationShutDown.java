@@ -1,12 +1,14 @@
 package com.liu;
 
 import com.liu.utils.OSSUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class ApplicationShutDown implements CommandLineRunner , DisposableBean {
 
     @Autowired
@@ -15,12 +17,12 @@ public class ApplicationShutDown implements CommandLineRunner , DisposableBean {
     @Override
     public void destroy() throws Exception {
         ossUtils.close();
-        System.err.println("关闭相关应用....");
-        System.err.println("关闭主应用...");
+        log.info("OSS正常关闭");
+        log.info("SpringBoot应用停止");
     }
 
     @Override
     public void run(String... args) throws Exception {
-        System.err.println("应用启动....");
+        System.err.println("SpringBoot 应用启动");
     }
 }

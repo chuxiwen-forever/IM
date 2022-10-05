@@ -6,6 +6,7 @@ import com.liu.mapper.ChatMsgMapper;
 import com.liu.netty.NettyChatMsg;
 import com.liu.netty.enums.MsgSignFlag;
 import com.liu.service.ChatMsgService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 public class ChatMsgServiceImpl implements ChatMsgService {
+
 
     @Autowired
     private ChatMsgMapper chatMsgMapper;
